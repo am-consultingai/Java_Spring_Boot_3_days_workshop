@@ -95,3 +95,4 @@ By the end, you’ll walk away with:
 ## 🙌 Credits
 
 This course and content are developed and delivered by **AM Consulting**.  
+www.amconsultingai.com
