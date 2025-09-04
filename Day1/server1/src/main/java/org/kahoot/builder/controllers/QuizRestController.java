@@ -15,13 +15,15 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// REST controller for quiz and question management
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") // Enable CORS for frontend
 public class QuizRestController {
 
     private static final Logger log = LoggerFactory.getLogger(QuizRestController.class);
 
+    // Dependency injection of repositories
     @Autowired
     private QuizRepository quizRepository;
     
@@ -34,6 +36,7 @@ public class QuizRestController {
     // QUIZ ENDPOINTS
     
     @Operation(summary = "Get all quizzes", description = "Retrieve all active quizzes")
+    // GET endpoint with request parameter
     @GetMapping("/quiz")
     public ResponseEntity<List<Quiz>> getAllQuizzes(@RequestParam("owner") String owner) {
         log.info("📥 REQUEST: GET /api/quiz - Get all quizzes");
@@ -52,6 +55,7 @@ public class QuizRestController {
     }
     
     @Operation(summary = "Get quiz by ID", description = "Retrieve a specific quiz by ID")
+    // GET endpoint with path variable
     @GetMapping("/quiz/{quizId}")
     public ResponseEntity<Quiz> getQuiz(@PathVariable Long quizId) {
         log.info("📥 REQUEST: GET /api/quiz/{} - Get quiz by ID", quizId);
@@ -72,6 +76,7 @@ public class QuizRestController {
     }
     
     @Operation(summary = "Create new quiz", description = "Create a new quiz")
+    // POST endpoint for creating new quiz with validation
     @PostMapping("/quiz")
     public ResponseEntity<?> createQuiz(@Valid @RequestBody CreateQuizRequest request) {
         log.info("📥 REQUEST: POST /api/quiz - Create new quiz: title='{}', description='{}'", 

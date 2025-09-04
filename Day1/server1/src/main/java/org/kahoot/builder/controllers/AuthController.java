@@ -19,13 +19,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// REST controller for authentication endpoints
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") // Enable CORS for frontend
 public class AuthController {
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
+    // Dependency injection of repository
     @Autowired
     private UserRepository userRepository;
 
@@ -34,6 +36,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "User registered successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid input or user already exists")
     })
+    // POST endpoint for user registration with validation
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody UserRegistration registration) {
         log.info("📥 REQUEST: POST /api/auth/signup - User signup: username='{}', email='{}'", 
@@ -97,6 +100,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "Login successful"),
             @ApiResponse(responseCode = "401", description = "Invalid credentials")
     })
+    // POST endpoint for user authentication
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody UserLogin loginRequest) {
         log.info("📥 REQUEST: POST /api/auth/login - User login: usernameOrEmail='{}'", 
@@ -144,6 +148,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "Profile retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
+    // GET endpoint with path variable for user profile
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getProfile(@PathVariable Long userId) {
         log.info("📥 REQUEST: GET /api/auth/profile/{} - Get user profile", userId);
@@ -181,6 +186,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "Score updated successfully"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
+    // POST endpoint with path variable and request parameter
     @PostMapping("/update-score/{userId}")
     public ResponseEntity<?> updateScore(@PathVariable Long userId, @RequestParam int scoreToAdd) {
         try {

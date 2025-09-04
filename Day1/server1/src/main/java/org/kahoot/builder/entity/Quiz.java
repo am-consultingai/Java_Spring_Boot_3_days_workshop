@@ -4,19 +4,23 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// JPA entity representing quiz table
 @Entity
 @Table(name = "quizzes")
 public class Quiz {
     
+    // Primary key with auto-generation
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    // Required title column
     @Column(nullable = false)
     private String title;
     
     private String description;
     
+    // Many-to-one relationship with User entity
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private User creator;
@@ -40,6 +44,7 @@ public class Quiz {
         this.updatedAt = LocalDateTime.now();
     }
     
+    // JPA lifecycle callback - updates timestamp before save
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();

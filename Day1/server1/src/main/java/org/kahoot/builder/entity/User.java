@@ -2,29 +2,36 @@ package org.kahoot.builder.entity;
 
 import jakarta.persistence.*;
 
+// JPA entity representing user table
 @Entity
 @Table(name = "users")
 public class User {
     
+    // Primary key with auto-generation
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    // Unique and required username column
     @Column(unique = true, nullable = false)
     private String username;
     
+    // Unique and required email column
     @Column(unique = true, nullable = false)
     private String email;
     
+    // Required password column
     @Column(nullable = false)
     private String password;
     
     private String firstName;
     private String lastName;
     
+    // Score tracking with custom column name
     @Column(name = "total_score")
     private int totalScore = 0;
     
+    // Games played counter with custom column name
     @Column(name = "games_played")
     private int gamesPlayed = 0;
     

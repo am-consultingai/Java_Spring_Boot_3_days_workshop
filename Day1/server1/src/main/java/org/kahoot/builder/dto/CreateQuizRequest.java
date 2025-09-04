@@ -1,5 +1,6 @@
 package org.kahoot.builder.dto;
 
+// DTO for quiz creation request
 public class CreateQuizRequest {
         private int ownerId;
         private String title;

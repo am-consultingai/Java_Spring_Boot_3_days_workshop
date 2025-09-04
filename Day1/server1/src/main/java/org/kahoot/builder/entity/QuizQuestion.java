@@ -4,20 +4,25 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// JPA entity representing quiz question table
 @Entity
 @Table(name = "quiz_questions")
 public class QuizQuestion {
     
+    // Primary key with auto-generation
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    // Foreign key to quiz with custom column name
     @Column(name = "quiz_id", nullable = false)
     private Long quizId;
     
+    // Question text with TEXT column type
     @Column(nullable = false, columnDefinition = "TEXT")
     private String questionText;
     
+    // Element collection for multiple choice options
     @ElementCollection
     @CollectionTable(name = "question_options", joinColumns = @JoinColumn(name = "question_id"))
     @Column(name = "option_text")
@@ -52,6 +57,7 @@ public class QuizQuestion {
         this.updatedAt = LocalDateTime.now();
     }
     
+    // JPA lifecycle callback - updates timestamp before save
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
